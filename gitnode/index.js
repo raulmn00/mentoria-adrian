@@ -1,74 +1,67 @@
-import { products } from './mockBanco.js';
-import prompt from 'prompt-sync';
+import { prateleira } from './mockBanco.js';
+import PromptSync from 'prompt-sync';
 
-const readPrompt = prompt({});
+/*
+. Adicionar um produto - 1;
+		. Remover um produto - 2;
+		. Ver o total da compra -3;
+		. Fechar o software - 4;
+		. Ver a lista de produtos - 5;
+		. Terminar a compra - 6;
+*/
 
-const actualStorage = products;
+const readPrompt = PromptSync({});
+
+const shopCart = [];
 
 function showMenu() {
-  console.log('==================================================');
-  console.log('1 - Ver lista de produtos');
-  console.log('2 - Remover produto');
-  console.log('3 - Adicionar produto');
-  console.log('0 - Sair do programa');
-  console.log('==================================================');
+  console.log('==============================================================');
+
+  console.log('1 - Adicionar um produto');
+  console.log('2 - Remover um produto');
+  console.log('3 - Ver o total da compra');
+  console.log('4 - Ver a lista de produtos');
+  console.log('5 - Fechar a compra');
+  console.log('0 - Fechar o software');
+
+  console.log('==============================================================');
 }
 
-function addProduct(name, code, price, quantity) {
-  const parsedObject = { name, code, price, quantity };
+// fechar compra
+function closeBill() {}
 
-  actualStorage.push(parsedObject);
-  console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-  console.log(`O produto ${name} foi adicionado com sucesso.`);
-  console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+// listar produtos
+function listProdutos() {}
+
+// ver total da compra
+function totalShop() {}
+
+// remover produto
+function removeProduct() {}
+
+// adicionar produto
+function addProduct(code) {
+  const findedProduct = prateleira.find((item) => item.code === code);
+
+  // validar se achou um produto: se achou, adiciona o produto, senão, console.log numa mensagem para o usuário
+
+  console.log(findedProduct);
 }
 
-function removeProduct(code) {
-  products.map((item, index) => {
-    if (item.code === code) {
-      actualStorage.splice(index, 1);
-      console.log('++++++++++++++++++++++++++++++++++++++++++++++++++');
-      console.log(`O item ${item.name} foi removido com sucesso.`);
-      console.log('++++++++++++++++++++++++++++++++++++++++++++++++++');
-    }
-  });
-}
+function init() {
+  let option;
 
-function showListProducts(list) {
-  list.forEach((item) => {
-    console.log(
-      `Nome: ${item.name} - Código: ${item.code} - Preço: R$ ${item.price} - Quantidade: ${item.quantity}`
-    );
-  });
-}
-
-function main() {
-  let opt;
-  while (opt !== '0') {
+  while (option !== 0) {
     showMenu();
-    opt = readPrompt('Digite uma opção: ');
-
-    if (opt === '1') {
-      showListProducts(products);
-    }
-    if (opt === '2') {
-      let code = parseInt(
-        readPrompt('Qual o código do produto voce deseja remover: ')
+    option = parseInt(readPrompt('Digite sua opção: '));
+    if (option === 1) {
+      let productCode = parseInt(
+        readPrompt('Digite o código do produto que voce quer adicionar: ')
       );
-      removeProduct(code);
-      code = '';
-    }
-    if (opt === '3') {
-      let name = readPrompt('Digite o nome do produto: ');
-      let code = parseInt(readPrompt('Digite o código do produto: '));
-      let price = parseInt(readPrompt('Digite o preço do produto: '));
-      let quantity = parseInt(
-        readPrompt('Digite a quantidade de produtos que deseja adicionar: ')
-      );
-
-      addProduct(name, code, price, quantity);
+      addProduct(productCode);
+      productCode = '';
     }
   }
 }
 
-main();
+init();

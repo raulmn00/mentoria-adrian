@@ -1,4 +1,4 @@
-export const products = [
+export const prateleira = [
   { name: 'amaciante', code: 0, price: 64.17, quantity: 16 },
   { name: 'água', code: 1, price: 98.83, quantity: 42 },
   { name: 'picles', code: 2, price: 15.11, quantity: 17 },
